@@ -1,0 +1,35 @@
+{
+    "keys": [
+        {
+            "name": "effect",
+            "type": "kubejs_roots:ritual",
+            "role": "output"
+        },
+        {
+            "name": "ingredients",
+            "type": "ingredient[]",
+            "role": "input"
+        },
+        {
+            "name": "incenses",
+            "type": "ingredient[]",
+            "role": "input"
+        },
+        {
+            "name": "level",
+            "type": "int",
+            "role": "other"
+        },
+        {
+            "name": "color",
+            "type": "string",
+            "role": "other"
+        },
+        {
+            "name": "effectConfig",
+            "type": "kubejs_roots:tag_compound",
+            "role": "output",
+            "optional": {}
+        }
+    ]
+}

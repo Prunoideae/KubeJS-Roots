@@ -1,0 +1,28 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "LGPL-3.0"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "KubeJS Roots"
+authors = "Prunoideae"
+
+description = '''KubeJS support for Roots Classic.'''
+
+[[mixins]]
+config = "kubejs_roots.mixins.json"
+
+[[dependencies."${mod_id}"]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neo_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"

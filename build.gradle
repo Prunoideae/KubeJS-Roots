@@ -1,0 +1,143 @@
+plugins {
+    id 'base'
+    id 'java'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version "2.0.10-beta"
+}
+
+version = mod_version
+group = mod_group_id
+
+neoForge {
+    version = neo_version
+    accessTransformers {
+        publish(project.file("src/main/resources/META-INF/accesstransformer.cfg"))
+    }
+
+    interfaceInjectionData {
+        from(file("interfaces.json"))
+    }
+
+    mods {
+        kubejs_roots {
+            sourceSet sourceSets.main
+        }
+    }
+
+    parchment {
+        minecraftVersion = minecraft_version
+        mappingsVersion = parchment_version
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven {
+        url "https://maven.neoforged.net/releases"
+    }
+
+    maven {
+        url "https://maven.architectury.dev/"
+    }
+
+    maven {
+        url "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
+        }
+    }
+
+    maven {
+        url "https://maven.blamejared.com"
+        content {
+            includeGroup "mezz.jei"
+            includeGroup "net.darkhax.bookshelf"
+            includeGroup "net.darkhax.gamestages"
+        }
+    }
+
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+
+    maven { url 'https://modmaven.dev/' }
+
+    repositories {
+        maven {
+            url "https://cursemaven.com"
+        }
+    }
+
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+        content {
+            includeGroup "dev.emi"
+        }
+    }
+
+    maven {
+        url 'https://jitpack.io'
+        content {
+            includeGroup "com.github.rtyley"
+        }
+    }
+}
+
+dependencies {
+    api("dev.latvian.mods:rhino:$rhino_version") { transitive(false) }
+    api("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
+
+    implementation "curse.maven:roots-classic-295780:5768199"
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+    options.release.set(21)
+    options.compilerArgs << '-parameters'
+}
+
+java {
+    sourceCompatibility = targetCompatibility = '21'
+    withSourcesJar()
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_author,
+            mod_description        : mod_description,
+            kubejs_version  : kubejs_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : mod_id,
+                "Specification-Vendor"    : mod_author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}

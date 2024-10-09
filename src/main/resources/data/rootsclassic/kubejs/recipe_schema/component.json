@@ -1,0 +1,28 @@
+{
+    "keys": [
+        {
+            "name": "result",
+            "type": "item_stack",
+            "role": "output"
+        },
+        {
+            "name": "ingredients",
+            "type": "ingredient[]",
+            "role": "input"
+        },
+        {
+            "name": "effect",
+            "type": "kubejs_roots:component",
+            "role": "other",
+            "optional": "dummy",
+            "always_write": true
+        },
+        {
+            "name": "need_mixin",
+            "type": "boolean",
+            "role": "other",
+            "optional": false,
+            "always_write": true
+        }
+    ]
+}

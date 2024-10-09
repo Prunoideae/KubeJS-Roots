@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "moe.wolfgirl.kubejs_roots.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "kubejs_roots.refmap.json",
+    "mixins": [
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+  }
+}
